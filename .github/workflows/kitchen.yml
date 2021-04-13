@@ -2,6 +2,7 @@ name: Kitchen Terraform Setup for Ops
 on:
   repository_dispatch:
     types: [kitchen-terraform]
+  workflow_dispatch:
 jobs:
   myEvent:
     runs-on: ubuntu-latest
