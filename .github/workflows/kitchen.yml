@@ -24,6 +24,6 @@ jobs:
         run: |
           sleep 25
       - name: Printing the inputs
-      - run: |
+        run: |
           echo "Ref - ${{ github.event.inputs.ref }}!"
           echo "Name - ${{ github.event.inputs.sha }}!"
