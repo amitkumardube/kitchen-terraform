@@ -3,14 +3,27 @@ on:
   repository_dispatch:
     types: [kitchen-terraform]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'github branch reference number'
+        required: true
+        default: 'Mona the Octocat'
+      sha:
+        description: 'github branch sha commit ID'
+        required: true
+        default: 'The Octoverse'
 jobs:
   myEvent:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.client_payload.ref }}
-      - run: echo ${{ github.event.client_payload.sha }}
+      #- uses: actions/checkout@v2
+      #  with:
+      #    ref: ${{ github.event.client_payload.ref }}
+      #- run: echo ${{ github.event.client_payload.sha }}
       - name: Pause for 25 seconds
         run: |
           sleep 25
+      - name: Printing the inputs
+      - run: |
+          echo "Ref - ${{ github.event.inputs.ref }}!"
+          echo "Name - ${{ github.event.inputs.sha }}!"
