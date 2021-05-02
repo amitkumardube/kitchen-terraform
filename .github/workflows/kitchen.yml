@@ -13,16 +13,12 @@ on:
         required: true
         default: 'The Octoverse'
 jobs:
-  myEvent:
+  kitchenTest:
     runs-on: ubuntu-latest
+    container: amitkuamrdube/kitchen-terraform:latest
+    env : 
+      GOOGLE_APPLICATION_CREDENTIALS: "my-first-project-298218-7e25767dcc93.json"
     steps:
-      #- uses: actions/checkout@v2
-      #  with:
-      #    ref: ${{ github.event.client_payload.ref }}
-      #- run: echo ${{ github.event.client_payload.sha }}
-      - name: Pause for 25 seconds
-        run: |
-          sleep 25
       - name: Printing the inputs
         run: |
           echo "Ref - ${{ github.event.inputs.ref }}!"
