@@ -21,8 +21,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with:
-          path: kitchen
+      # this is the checkout of the code repo
       - name: Checkout code repo
         uses: actions/checkout@v2
         with:
@@ -37,9 +36,9 @@ jobs:
           EOF
       - id : copy-json-file
         run : |
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/big_query/
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/secrets/
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen/
+          cp my-first-project-298218-7e25767dcc93.json ./test/fixtures/big_query/
+          cp my-first-project-298218-7e25767dcc93.json ./test/fixtures/secrets/
+          cp ./code/kitchen.yml .
       # setup gcloud in the image so that we can use with local controller
       - uses: google-github-actions/setup-gcloud@master
         with:
@@ -47,7 +46,6 @@ jobs:
       # Run Kitchen tests 
       - name: kitchen-testing
         run : |
-          cd code
           kitchen create
           kitchen converge
           kitchen list
@@ -56,7 +54,6 @@ jobs:
       - name: kitchen-destroy
         if: ${{ always() }}
         run : |
-          cd code
           kitchen destroy
       - name: Printing the inputs
         run: |
