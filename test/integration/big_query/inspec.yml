@@ -1,0 +1,17 @@
+name: big_query
+depends:
+  - name: inspec-gcp
+    git: https://github.com/inspec/inspec-gcp.git
+    tag: v1.8.0
+supports:
+  - platform: gcp
+inputs:
+  - name: dataset_name
+    required: true
+    type: string
+  - name: account_name
+    required: true
+    type: string
+  - name : project_id
+    required: true
+    type: string
