@@ -7,11 +7,10 @@ on:
       ref:
         description: 'github branch reference number'
         required: true
-        default: 'Mona the Octocat'
-      sha:
-        description: 'github branch sha commit ID'
+        default: 'main'
+      repo:
+        description: 'github repo calling this workflow'
         required: true
-        default: 'The Octoverse'
 jobs:
   kitchenTest:
     runs-on: ubuntu-latest
@@ -25,7 +24,8 @@ jobs:
       - name: Checkout code repo
         uses: actions/checkout@v2
         with:
-          repository: amitkumardube/terraform-testing
+          repository: ${{ github.event.inputs.repo }}
+          ref: ${{ github.event.inputs.ref }}
           path: code 
       # setting the config file as per configuration variable
       - id : config-file-creation
@@ -55,7 +55,3 @@ jobs:
         if: ${{ always() }}
         run : |
           kitchen destroy
-      - name: Printing the inputs
-        run: |
-          echo "Ref - ${{ github.event.inputs.ref }}!"
-          echo "Name - ${{ github.event.inputs.sha }}!"
