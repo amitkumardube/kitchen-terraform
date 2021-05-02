@@ -30,9 +30,8 @@ jobs:
           EOF
       - id : copy-json-file
         run : |
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/big_query/
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen
-          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/secrets/
+          cp my-first-project-298218-7e25767dcc93.json ./test/fixtures/big_query/
+          cp my-first-project-298218-7e25767dcc93.json ./test/fixtures/secrets/
       # setup gcloud in the image so that we can use with local controller
       - uses: google-github-actions/setup-gcloud@master
         with:
@@ -40,7 +39,6 @@ jobs:
       # Run Kitchen tests 
       - name: kitchen-testing
         run : |
-          cd kitchen
           kitchen create
           kitchen converge
           kitchen list
@@ -49,7 +47,6 @@ jobs:
       - name: kitchen-destroy
         if: ${{ always() }}
         run : |
-          cd kitchen
           kitchen destroy
       - name: Printing the inputs
         run: |
