@@ -19,6 +19,38 @@ jobs:
     env : 
       GOOGLE_APPLICATION_CREDENTIALS: "my-first-project-298218-7e25767dcc93.json"
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # setting the config file as per configuration variable
+      - id : config-file-creation
+        name : setup service account file
+        run : |- 
+          cat > my-first-project-298218-7e25767dcc93.json <<-EOF
+            ${{ secrets.SA_KEY }}
+          EOF
+      - id : copy-json-file
+        run : |
+          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/big_query/
+          cp my-first-project-298218-7e25767dcc93.json ./kitchen
+          cp my-first-project-298218-7e25767dcc93.json ./kitchen/test/fixtures/secrets/
+      # setup gcloud in the image so that we can use with local controller
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.SA_KEY }}
+      # Run Kitchen tests 
+      - name: kitchen-testing
+        run : |
+          cd kitchen
+          kitchen create
+          kitchen converge
+          kitchen list
+          kitchen verify
+      # Run kitchen destroy. This needs to be run even if earlier actions failed
+      - name: kitchen-destroy
+        if: ${{ always() }}
+        run : |
+          cd kitchen
+          kitchen destroy
       - name: Printing the inputs
         run: |
           echo "Ref - ${{ github.event.inputs.ref }}!"
