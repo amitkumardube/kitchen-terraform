@@ -11,6 +11,9 @@ on:
       repo:
         description: 'github repo calling this workflow'
         required: true
+      token:
+        description: 'token to checkout the repo'
+        required: true
 jobs:
   kitchenTest:
     runs-on: ubuntu-latest
@@ -26,6 +29,7 @@ jobs:
         with:
           repository: ${{ github.event.inputs.repo }}
           ref: ${{ github.event.inputs.ref }}
+          token: ${{ github.event.inputs.token }}
           path: code 
       # setting the config file as per configuration variable
       - id : config-file-creation
