@@ -8,7 +8,7 @@ The kitchen tests are driven by a file called kitchen.yaml
 
 |Terraform | Kitchen-Terraform | Triggered By| 
 |--- | --- | --- |
-|terraform init | KITCHEN CREATE |  kitchen.yaml - Driver|
+|terraform init | kitchen create |  kitchen.yaml - Driver|
 |terraform apply --auto-approve|kitchen converge|
 |NONE|kitchen verify|Inspec profiles|
 |terraform destroy|kitchen destroy|
