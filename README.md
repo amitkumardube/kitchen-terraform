@@ -14,7 +14,7 @@
 |--- | --- | --- |
 |terraform init | kitchen create |  Test Suite - kitchen.yaml - Driver|
 |terraform apply --auto-approve|kitchen converge| Test Suite - kitchen.yaml - provisioner|
-|NONE|kitchen verify|Inspec profiles| kitchen.yaml - Verifier(inspec.yml + controls)|
+|NONE|kitchen verify|kitchen.yaml - Verifier(inspec.yml + controls)|
 |terraform destroy|kitchen destroy|
 
 **Kitchen Terraform Plugin**
