@@ -4,7 +4,7 @@ project_id = input('project_id')
 control "gcloud" do
     title "gcloud configuration"
 
-    describe command("gcloud secrets describe secret-test --project=my-first-project-298218 --format=json") do
+    describe command("gcloud secrets describe #{secret_name} --project=#{project_id} --format=json") do
       its(:exit_status) { should eq 0 }
       its(:stderr) { should eq '' }
   
