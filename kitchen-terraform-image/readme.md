@@ -16,7 +16,7 @@ docker login
 
 ***once authenticated, please run docker push to push the image in dockerhub***
 
-docker push <name of the image> 
+docker push <docker_hub_user_name>/kitchen-terraform:latest 
   
 ***if you don't want to create your own image then please use the existing image by using below command***
   
